@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\CheckSeatsAvailable;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BookedRequest extends FormRequest
@@ -24,7 +25,7 @@ class BookedRequest extends FormRequest
         return [
             "station_from"  => 'required|exists:stations,id|numeric',
             "station_to"    => 'required|exists:stations,id|numeric|gt:'.request()->station_from,
-            "seat_id"      => 'required|exists:seats,id|numeric',
+            "seat_id"      => ['required','exists:seats,id','numeric', new CheckSeatsAvailable( request()->station_from , request()->station_to )],
         ];
     }
 }
