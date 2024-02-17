@@ -25,7 +25,7 @@ class BookedRequest extends FormRequest
         return [
             "station_from"  => 'required|exists:stations,id|numeric',
             "station_to"    => 'required|exists:stations,id|numeric|gt:'.request()->station_from,
-            "seat_id"      => ['required','exists:seats,id','numeric', new CheckSeatsAvailable( request()->station_from , request()->station_to )],
+            "seat_id"       => ['required','min:1' ,'max:12','exists:seats,id','numeric',new CheckSeatsAvailable()],
         ];
     }
 }

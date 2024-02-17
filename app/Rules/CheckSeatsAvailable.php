@@ -9,18 +9,14 @@ use Illuminate\Contracts\Validation\ValidationRule;
 class CheckSeatsAvailable implements ValidationRule
 {
     use CheckSeatTrait;
-    /**
-     * Run the validation rule.
-     *
-     * @param  \Closure(string): \Illuminate\Translation\PotentiallyTranslatedString  $fail
-     */
+
     protected $station_from;
     protected $station_to;
 
-    public function __construct( $station_from , $station_to )
+    public function __construct()
     {
-        $this->station_from = $station_from;
-        $this->station_to = $station_to;
+        $this->station_from = request()->station_from ?? 1;
+        $this->station_to = request()->station_to ?? 1;
     }
 
     public function validate(string $attribute, mixed $value, Closure $fail): void
