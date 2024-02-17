@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('booked-seats', [BookController::class, 'reservation']);
+Route::post('check-available-seats', [BookController::class, 'checkAvailableSeats']);
